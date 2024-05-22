@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini-Jeux en JavaScript</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Mini-Jeux</h1>
+      <div id="game-menu">
+        <button onclick="location.href='tic-tac-toe/tic-tac-toe.html'">
+          Tic-Tac-Toe
+        </button>
+        <button onclick="location.href='memory/memory.html'">Memory</button>
+        <button onclick="location.href='2048/2048.html'">2048</button>
+        <button
+          onclick="location.href='pierre-feuille-ciseau/pierre-feuille-ciseaux.html'"
+        >
+          pierre-feuille-ciseaux
+        </button>
+      </div>
+      <div id="high-scores">
+        <h2>Meilleurs Scores</h2>
+        <div id="tic-tac-toe-scores">Tic-Tac-Toe:</div>
+        <div id="memory-scores">Memory:</div>
+        <div id="2048-scores">2048:</div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
