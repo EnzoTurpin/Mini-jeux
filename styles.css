@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,8 +125,10 @@ body {
   background-color: #edc22e;
   color: #f9f6f2;
 }
+.
 
 /* Styles pour Pierre Feuille Ciseaux */
+
 #game {
   margin: 20px;
 }
@@ -149,4 +151,39 @@ body {
 #result {
   margin: 20px;
   font-size: 18px;
+}
+
+/* Styles pour le jeu Simon */
+#simon-container {
+  text-align: center;
+}
+
+#simon-game {
+  display: flex;
+  grid-template-columns: repeat(2, 200px); /* Augmentation de la taille des boutons */
+  grid-gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button.color-btn {
+  width: 200px;
+  height: 200px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 10px; /* Ajout de coins arrondis */
+  transition: opacity 0.2s;
+}
+
+button.color-btn:active {
+  opacity: 0.7;
+}
+
+#start-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
