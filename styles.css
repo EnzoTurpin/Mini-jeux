@@ -125,10 +125,8 @@ body {
   background-color: #edc22e;
   color: #f9f6f2;
 }
-.
 
 /* Styles pour Pierre Feuille Ciseaux */
-
 #game {
   margin: 20px;
 }
@@ -160,7 +158,10 @@ body {
 
 #simon-game {
   display: flex;
-  grid-template-columns: repeat(2, 200px); /* Augmentation de la taille des boutons */
+  grid-template-columns: repeat(
+    2,
+    200px
+  ); /* Augmentation de la taille des boutons */
   grid-gap: 20px;
   justify-content: center;
   margin-top: 20px;
@@ -186,4 +187,31 @@ button.color-btn:active {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+}
+
+/* Styles pour Doodle Jump */
+#game-container {
+  position: relative;
+  width: 400px;
+  height: 600px;
+  background-color: #87ceeb; /* Couleur du ciel */
+  border: 2px solid #000;
+  overflow: hidden; /* Pour s'assurer que tout est contenu dans le conteneur */
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  background-color: transparent; /* Pour voir la couleur du ciel */
+}
+
+/* Optionnel: vous pouvez ajouter des styles pour d'autres éléments du jeu */
+.platform {
+  background-color: #32cd32; /* Couleur verte pour les plateformes */
+  border-radius: 10px; /* Pour arrondir les coins des plateformes */
+}
+
+.player {
+  background-color: #ffd700; /* Couleur dorée pour le joueur */
+  border-radius: 50%; /* Pour faire un cercle */
 }
