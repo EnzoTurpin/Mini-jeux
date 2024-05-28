@@ -1,0 +1,95 @@
+
+
+/* Set the font family and background color for the body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Style the container for the Simon game */
+#simon-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Style the game board */
+#simon-game {
+  display: grid;
+  grid-template-columns: repeat(2, 200px); /* Adjust the size of the buttons */
+  grid-gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style the color buttons */
+button.color-btn {
+  width: 200px;
+  height: 200px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 10px; 
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+/* Style the active state of the color buttons when pressed */
+button.color-btn:active {
+  opacity: 0.7;
+}
+
+/* Style the green button */
+#green {
+  background-color: green;
+}
+
+/* Style the red button */
+#red {
+  background-color: red;
+}
+
+/* Style the yellow button */
+#yellow {
+  background-color: yellow;
+}
+
+/* Style the blue button */
+#blue {
+  background-color: blue;
+}
+
+/* Style the active state of the color buttons */
+.color-btn.active#green {
+  background-color: lightgreen;
+}
+
+.color-btn.active#red {
+  background-color: lightcoral;
+}
+
+.color-btn.active#yellow {
+  background-color: lightyellow;
+}
+
+.color-btn.active#blue {
+  background-color: lightblue;
+}
+
+/* Style the start button */
+#start-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Style the status text */
+#status {
+  font-size: 18px;
+  margin-top: 20px;
+}

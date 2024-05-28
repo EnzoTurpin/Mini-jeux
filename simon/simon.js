@@ -1,80 +1,90 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const colors = ['green', 'red', 'yellow', 'blue'];
-    let sequence = [];
-    let playerSequence = [];
-    let level = 0;
+const colors = ["green", "red", "yellow", "blue"];
+let sequence = [];
+let userSequence = [];
+let level = 0;
+let isUserTurn = false;
 
-    const status = document.getElementById('status');
-    const startButton = document.getElementById('start-btn');
-    const buttons = document.querySelectorAll('.color-btn');
+const buttons = {
+  green: document.getElementById("green"),
+  red: document.getElementById("red"),
+  yellow: document.getElementById("yellow"),
+  blue: document.getElementById("blue"),
+};
 
-    startButton.addEventListener('click', startGame);
+const sounds = {
+  green: new Audio("green.mp3"),
+  red: new Audio("red.mp3"),
+  yellow: new Audio("yellow.mp3"),
+  blue: new Audio("blue.mp3"),
+};
 
-    buttons.forEach(button => {
-        button.addEventListener('click', event => {
-            const color = event.target.id;
-            playerSequence.push(color);
-            activateButton(color); // Ajouter un retour visuel immédiat
-            checkPlayerMove(color);
-        });
-    });
+const startButton = document.getElementById("start-btn");
+const statusText = document.getElementById("status");
 
-    function startGame() {
-        level = 0;
-        sequence = [];
-        playerSequence = [];
-        status.textContent = 'Suivez la séquence';
-        nextRound();
+function flashButton(color) {
+  buttons[color].classList.add("active");
+  sounds[color].play();
+  setTimeout(() => {
+    buttons[color].classList.remove("active");
+  }, 500);
+}
+
+function playSequence() {
+  let i = 0;
+  isUserTurn = false;
+  statusText.textContent = "Watch the sequence";
+
+  const interval = setInterval(() => {
+    if (i < sequence.length) {
+      flashButton(sequence[i]);
+      i++;
+    } else {
+      clearInterval(interval);
+      isUserTurn = true;
+      userSequence = [];
+      statusText.textContent = "Your turn";
     }
+  }, 1000);
+}
 
-    function nextRound() {
-        level++;
-        playerSequence = [];
-        const nextColor = colors[Math.floor(Math.random() * colors.length)];
-        sequence.push(nextColor);
+function addColorToSequence() {
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  sequence.push(randomColor);
+}
 
-        status.textContent = `Niveau ${level}`;
+function startGame() {
+  level = 0;
+  sequence = [];
+  statusText.textContent = "Level " + (level + 1);
+  addColorToSequence();
+  setTimeout(playSequence, 1000);
+}
 
-        playSequence();
+function checkUserSequence() {
+  for (let i = 0; i < userSequence.length; i++) {
+    if (userSequence[i] !== sequence[i]) {
+      statusText.textContent = "Game Over! You reached level " + level;
+      isUserTurn = false;
+      return;
     }
+  }
 
-    function playSequence() {
-        let delay = 1000;
+  if (userSequence.length === sequence.length) {
+    level++;
+    statusText.textContent = "Level " + (level + 1);
+    addColorToSequence();
+    setTimeout(playSequence, 1000);
+  }
+}
 
-        sequence.forEach((color, index) => {
-            setTimeout(() => {
-                activateButton(color);
-            }, delay * (index + 1));
-        });
+startButton.addEventListener("click", startGame);
+
+for (const color in buttons) {
+  buttons[color].addEventListener("click", () => {
+    if (isUserTurn) {
+      flashButton(color);
+      userSequence.push(color);
+      checkUserSequence();
     }
-
-    function activateButton(color) {
-        const button = document.getElementById(color);
-        button.style.opacity = 0.7;
-        setTimeout(() => {
-            button.style.opacity = 1;
-        }, 500);
-    }
-
-    function checkPlayerMove(color) {
-        const index = playerSequence.length - 1;
-
-        if (playerSequence[index] !== sequence[index]) {
-            status.textContent = 'Game Over! Cliquez sur Start pour recommencer';
-            saveHighScore("simonHighScore", level - 1);
-            return;
-        }
-
-        if (playerSequence.length === sequence.length) {
-            setTimeout(nextRound, 1000);
-        }
-    }
-
-    function saveHighScore(game, score) {
-        let highScores = JSON.parse(localStorage.getItem(game)) || [];
-        highScores.push(score);
-        highScores.sort((a, b) => b - a);
-        highScores = highScores.slice(0, 5); // Garder uniquement les 5 meilleurs scores
-        localStorage.setItem(game, JSON.stringify(highScores));
-    }
-});
+  });
+}

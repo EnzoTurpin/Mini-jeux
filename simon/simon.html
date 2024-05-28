@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simon</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Simon</h1>
-    <div id="simon-game">
-        <button class="color-btn" id="green" style="background-color: green;"></button>
-        <button class="color-btn" id="red" style="background-color: red;"></button>
-        <button class="color-btn" id="yellow" style="background-color: yellow;"></button>
-        <button class="color-btn" id="blue" style="background-color: blue;"></button>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon Game</title>
+    <link rel="stylesheet" href="/mini-jeux-js/styles/style-simon.css" />
+  </head>
+  <body>
+    <div id="simon-container">
+      <div id="simon-game">
+        <button class="color-btn" id="green"></button>
+        <button class="color-btn" id="red"></button>
+        <button class="color-btn" id="yellow"></button>
+        <button class="color-btn" id="blue"></button>
+      </div>
+      <button id="start-btn">Start Game</button>
+      <p id="status"></p>
     </div>
-    <h2 id="status">Cliquez sur Start pour commencer le jeu</h2>
-    <button id="start-btn">Start</button>
     <button onclick="location.href='../index.html'">Retour au menu</button>
     <script src="simon.js"></script>
-</body>
+  </body>
 </html>

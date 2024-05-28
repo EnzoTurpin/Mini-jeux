@@ -1,217 +1,74 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #ffffff;
+/* styles.css */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1e1e2f; /* Fond sombre */
+  color: #ffffff; /* Texte blanc */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-.container {
   text-align: center;
 }
 
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent pour un effet de carte */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre portée */
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #ffeb3b; /* Couleur jaune vif pour le titre */
+}
+
+#game-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
 #game-menu button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  background: #6200ea; /* Violet vif */
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 #game-menu button:hover {
-  background-color: #0056b3;
+  background: #3700b3; /* Violet foncé au survol */
+  transform: scale(1.05);
 }
 
 #high-scores {
   margin-top: 30px;
 }
 
+#high-scores h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ff5722; /* Couleur orange vif */
+}
+
 #high-scores div {
-  margin: 5px 0;
-}
-
-#memory-board,
-#game-2048-board {
-  display: grid;
-  grid-template-columns: repeat(4, 100px);
-  gap: 10px;
-  margin: 20px auto;
-  background-color: #fff;
-}
-
-#tic-tac-toe-board {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  gap: 5px;
-  margin: 20px auto;
-}
-
-.card,
-.cell {
-  width: 100px;
-  height: 100px;
-  background-color: #e0e0e0;
-  border: 2px solid #000;
-  font-size: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.card:hover,
-.cell:hover {
-  background-color: #d0d0d0;
-}
-
-.cell.X {
-  font-weight: bold;
-  color: #ff0000; /* Rouge pour les X */
-}
-
-.cell.O {
-  font-weight: bold;
-  color: #0000ff; /* Bleu pour les O */
-}
-
-/* Styles pour 2048 */
-.cell.tile-2 {
-  background-color: #eee4da;
-}
-.cell.tile-4 {
-  background-color: #ede0c8;
-}
-.cell.tile-8 {
-  background-color: #f2b179;
-  color: #f9f6f2;
-}
-.cell.tile-16 {
-  background-color: #f59563;
-  color: #f9f6f2;
-}
-.cell.tile-32 {
-  background-color: #f67c5f;
-  color: #f9f6f2;
-}
-.cell.tile-64 {
-  background-color: #f65e3b;
-  color: #f9f6f2;
-}
-.cell.tile-128 {
-  background-color: #edcf72;
-  color: #f9f6f2;
-}
-.cell.tile-256 {
-  background-color: #edcc61;
-  color: #f9f6f2;
-}
-.cell.tile-512 {
-  background-color: #edc850;
-  color: #f9f6f2;
-}
-.cell.tile-1024 {
-  background-color: #edc53f;
-  color: #f9f6f2;
-}
-.cell.tile-2048 {
-  background-color: #edc22e;
-  color: #f9f6f2;
-}
-
-/* Styles pour Pierre Feuille Ciseaux */
-#game {
-  margin: 20px;
-}
-
-#game button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  font-size: 1.5rem;
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent pour les scores */
   border-radius: 5px;
-}
-
-#game button:hover {
-  background-color: #0056b3;
-}
-
-#result {
-  margin: 20px;
-  font-size: 18px;
-}
-
-/* Styles pour le jeu Simon */
-#simon-container {
-  text-align: center;
-}
-
-#simon-game {
-  display: flex;
-  grid-template-columns: repeat(
-    2,
-    200px
-  ); /* Augmentation de la taille des boutons */
-  grid-gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-button.color-btn {
-  width: 200px;
-  height: 200px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  border-radius: 10px; /* Ajout de coins arrondis */
-  transition: opacity 0.2s;
-}
-
-button.color-btn:active {
-  opacity: 0.7;
-}
-
-#start-btn {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* Styles pour Doodle Jump */
-#game-container {
-  position: relative;
-  width: 400px;
-  height: 600px;
-  background-color: #87ceeb; /* Couleur du ciel */
-  border: 2px solid #000;
-  overflow: hidden; /* Pour s'assurer que tout est contenu dans le conteneur */
-}
-
-canvas {
-  display: block;
-  margin: 0 auto;
-  background-color: transparent; /* Pour voir la couleur du ciel */
-}
-
-/* Optionnel: vous pouvez ajouter des styles pour d'autres éléments du jeu */
-.platform {
-  background-color: #32cd32; /* Couleur verte pour les plateformes */
-  border-radius: 10px; /* Pour arrondir les coins des plateformes */
-}
-
-.player {
-  background-color: #ffd700; /* Couleur dorée pour le joueur */
-  border-radius: 50%; /* Pour faire un cercle */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Ombre légère pour les scores */
 }

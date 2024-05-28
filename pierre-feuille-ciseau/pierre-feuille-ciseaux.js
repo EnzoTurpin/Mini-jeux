@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const choices = ["Pierre", "Feuille", "Ciseaux"];
+  const choices = ["🪨", "📄", "✂️"];
   const buttons = document.querySelectorAll("button");
   const resultDiv = document.getElementById("result");
 
@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (player === computer) {
       return "C'est une égalité !";
     } else if (
-      (player === "Pierre" && computer === "Ciseaux") ||
-      (player === "Feuille" && computer === "Pierre") ||
-      (player === "Ciseaux" && computer === "Feuille")
+      (player === "🪨" && computer === "✂️") ||
+      (player === "📄" && computer === "🪨") ||
+      (player === "✂️" && computer === "📄")
     ) {
       return "Vous gagnez !";
     } else {

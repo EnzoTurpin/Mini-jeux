@@ -1,0 +1,49 @@
+/* Pour s'assurer que le body prend toute la hauteur de la fenêtre */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #87CEEB; /* Couleur de fond similaire au ciel */
+  }
+  
+  /* Conteneur du jeu */
+  #game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #87CEEB, #fff); /* Dégradé du ciel au blanc */
+  }
+  
+  /* Canvas du jeu */
+  #gameCanvas {
+    border: 2px solid #000; /* Bordure noire pour le canvas */
+    background-color: #F0F0F0; /* Couleur de fond neutre pour le canvas */
+    width: 320px; /* Largeur fixe pour le canvas */
+    height: 480px; /* Hauteur fixe pour le canvas */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Ombre pour donner un effet de profondeur */
+  }
+  
+  /* Bouton de retour */
+  button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #FF4500; /* Couleur orange vif pour le bouton */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* Ombre légère pour le bouton */
+  }
+  
+  button:hover {
+    background-color: #FF6347; /* Couleur de survol pour le bouton */
+  }
+  
