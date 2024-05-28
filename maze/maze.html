@@ -8,6 +8,8 @@
       body {
         margin: 0;
         overflow: hidden;
+        font-family: "Arial", sans-serif;
+        background-color: #222;
       }
       canvas {
         display: block;
@@ -16,7 +18,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.7);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -24,6 +26,11 @@
       #instructions {
         font-size: 24px;
         color: white;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        animation: fadeIn 2s;
       }
       #victoryMessage {
         display: none;
@@ -33,9 +40,10 @@
         transform: translate(-50%, -50%);
         font-size: 32px;
         color: white;
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(0, 0, 0, 0.85);
         padding: 20px;
         border-radius: 10px;
+        animation: fadeIn 2s;
       }
       #minimap {
         position: absolute;
@@ -44,6 +52,15 @@
         width: 200px;
         height: 200px;
         border: 2px solid white;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
     </style>
   </head>
@@ -56,11 +73,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/controls/PointerLockControls.js"></script>
     <script>
-      const mazeWidth = 21; // Must be an odd number
-      const mazeHeight = 21; // Must be an odd number
+      const mazeWidth = 21;
+      const mazeHeight = 21;
       const cellSize = 1;
 
-      // Main Scene, camera, renderer setup
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         75,
@@ -72,7 +88,6 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      // Mini-map Scene, camera, renderer setup
       const minimapScene = new THREE.Scene();
       const minimapCamera = new THREE.OrthographicCamera(
         -mazeWidth / 2,
@@ -90,19 +105,17 @@
         .getElementById("minimap")
         .appendChild(minimapRenderer.domElement);
 
-      // Add lights to both scenes
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
       scene.add(ambientLight);
       minimapScene.add(ambientLight.clone());
 
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
       directionalLight.position.set(0, 10, 0).normalize();
       scene.add(directionalLight);
       minimapScene.add(directionalLight.clone());
 
-      // PointerLockControls
       const controls = new THREE.PointerLockControls(camera, document.body);
-      controls.pointerSpeed = 0.2; // Adjust pointer speed to limit mouse sensitivity
+      controls.pointerSpeed = 0.2;
 
       const blocker = document.getElementById("blocker");
       const instructions = document.getElementById("instructions");
@@ -124,26 +137,24 @@
 
       scene.add(controls.getObject());
 
-      // Initialize the maze grid
       const maze = [];
       for (let z = 0; z < mazeHeight; z++) {
         maze[z] = [];
         for (let x = 0; x < mazeWidth; x++) {
-          maze[z][x] = 1; // Initialize all cells as walls
+          maze[z][x] = 1;
         }
       }
 
-      // Maze generation using Depth-First Search (DFS)
       function generateMaze(x, z) {
         const stack = [];
         stack.push({ x, z });
-        maze[z][x] = 0; // Start cell
+        maze[z][x] = 0;
 
         const directions = [
-          { x: 0, z: -2 }, // Up
-          { x: 2, z: 0 }, // Right
-          { x: 0, z: 2 }, // Down
-          { x: -2, z: 0 }, // Left
+          { x: 0, z: -2 },
+          { x: 2, z: 0 },
+          { x: 0, z: 2 },
+          { x: -2, z: 0 },
         ];
 
         while (stack.length > 0) {
@@ -158,8 +169,8 @@
 
             if (nx > 0 && nx < mazeWidth && nz > 0 && nz < mazeHeight) {
               if (maze[nz][nx] === 1) {
-                maze[nz][nx] = 0; // Mark the cell as a passage
-                maze[mz][mx] = 0; // Remove the wall between cells
+                maze[nz][nx] = 0;
+                maze[mz][mx] = 0;
                 stack.push({ x: nx, z: nz });
               }
             }
@@ -169,14 +180,20 @@
 
       generateMaze(1, 1);
 
-      // Store wall positions for collision detection
       const walls = [];
       const wallBoxes = [];
 
-      // Function to create a wall segment
+      const textureLoader = new THREE.TextureLoader();
+      const wallTexture = textureLoader.load(
+        "https://threejsfundamentals.org/threejs/resources/images/wall.jpg"
+      );
+      const floorTexture = textureLoader.load(
+        "https://threejsfundamentals.org/threejs/resources/images/floor.jpg"
+      );
+
       function createWall(x, z) {
         const geometry = new THREE.BoxGeometry(cellSize, cellSize, cellSize);
-        const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+        const material = new THREE.MeshStandardMaterial({ map: wallTexture });
         const wall = new THREE.Mesh(geometry, material);
         wall.position.set(x * cellSize, cellSize / 2, z * cellSize);
         scene.add(wall);
@@ -187,7 +204,6 @@
         wallBoxes.push(new THREE.Box3().setFromObject(wall));
       }
 
-      // Create maze in 3D
       for (let z = 0; z < mazeHeight; z++) {
         for (let x = 0; x < mazeWidth; x++) {
           if (maze[z][x] === 1) {
@@ -196,17 +212,17 @@
         }
       }
 
-      // Add floor to main scene
       const floorGeometry = new THREE.PlaneGeometry(
         mazeWidth * cellSize,
         mazeHeight * cellSize
       );
-      const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+      const floorMaterial = new THREE.MeshStandardMaterial({
+        map: floorTexture,
+      });
       const floor = new THREE.Mesh(floorGeometry, floorMaterial);
       floor.rotation.x = -Math.PI / 2;
       scene.add(floor);
 
-      // Add floor to minimap scene
       const miniFloorMaterial = new THREE.MeshStandardMaterial({
         color: 0x808080,
         side: THREE.DoubleSide,
@@ -215,11 +231,9 @@
       miniFloor.rotation.x = -Math.PI / 2;
       minimapScene.add(miniFloor);
 
-      // Camera position
       const cameraHeight = cellSize / 2;
       camera.position.set(1, cameraHeight, 1);
 
-      // Create arrival point
       const arrivalGeometry = new THREE.BoxGeometry(
         cellSize,
         cellSize / 4,
@@ -245,7 +259,6 @@
 
       const arrivalBox = new THREE.Box3().setFromObject(arrival);
 
-      // Create player indicator for minimap
       const playerGeometry = new THREE.BoxGeometry(
         cellSize,
         cellSize / 2,
@@ -262,26 +275,25 @@
       );
       minimapScene.add(playerIndicator);
 
-      // Movement controls
       let moveForward = false;
       let moveBackward = false;
       let moveLeft = false;
       let moveRight = false;
       const velocity = new THREE.Vector3();
       const direction = new THREE.Vector3();
-      const speed = 2.0; // Adjust speed as necessary
+      const speed = 2.0;
       let prevTime = performance.now();
 
       const onKeyDown = function (event) {
         switch (event.code) {
           case "ArrowUp":
           case "KeyW":
-          case "KeyZ": // For AZERTY keyboards
+          case "KeyZ":
             moveForward = true;
             break;
           case "ArrowLeft":
           case "KeyA":
-          case "KeyQ": // For AZERTY keyboards
+          case "KeyQ":
             moveLeft = true;
             break;
           case "ArrowDown":
@@ -299,12 +311,12 @@
         switch (event.code) {
           case "ArrowUp":
           case "KeyW":
-          case "KeyZ": // For AZERTY keyboards
+          case "KeyZ":
             moveForward = false;
             break;
           case "ArrowLeft":
           case "KeyA":
-          case "KeyQ": // For AZERTY keyboards
+          case "KeyQ":
             moveLeft = false;
             break;
           case "ArrowDown":
@@ -321,7 +333,6 @@
       document.addEventListener("keydown", onKeyDown);
       document.addEventListener("keyup", onKeyUp);
 
-      // Collision detection
       function checkCollision(position) {
         const box = new THREE.Box3().setFromCenterAndSize(
           new THREE.Vector3(position.x, cameraHeight, position.z),
@@ -335,7 +346,6 @@
         return false;
       }
 
-      // Check if player has reached the arrival point
       function checkArrival(position) {
         const box = new THREE.Box3().setFromCenterAndSize(
           new THREE.Vector3(position.x, cameraHeight, position.z),
@@ -344,7 +354,6 @@
         return box.intersectsBox(arrivalBox);
       }
 
-      // Movement and collision handling function
       function handleMovement(delta, forward, right) {
         const moveDistance = speed * delta;
 
@@ -364,29 +373,26 @@
         }
         if (moveLeft) {
           nextPosition = controls.getObject().position.clone();
-          nextPosition.add(right.multiplyScalar(-moveDistance));
+          nextPosition.add(right.multiplyScalar(moveDistance)); // Adjusted: move in the same direction as forward
           if (!checkCollision(nextPosition)) {
             controls.getObject().position.copy(nextPosition);
           }
         }
         if (moveRight) {
           nextPosition = controls.getObject().position.clone();
-          nextPosition.add(right.multiplyScalar(moveDistance));
+          nextPosition.add(right.multiplyScalar(-moveDistance)); // Adjusted: move in the opposite direction to backward
           if (!checkCollision(nextPosition)) {
             controls.getObject().position.copy(nextPosition);
           }
         }
 
-        // Keep the camera at a constant height
         controls.getObject().position.y = cameraHeight;
 
-        // Check if arrival is reached
         if (checkArrival(controls.getObject().position)) {
           victoryMessage.style.display = "block";
           controls.unlock();
         }
 
-        // Update player indicator position
         playerIndicator.position.set(
           controls.getObject().position.x,
           cameraHeight / 2,
@@ -394,7 +400,6 @@
         );
       }
 
-      // Animation loop
       function animate() {
         requestAnimationFrame(animate);
 
@@ -402,24 +407,18 @@
           const time = performance.now();
           const delta = (time - prevTime) / 1000;
 
-          // Get the direction the camera is facing
           const forward = new THREE.Vector3();
           camera.getWorldDirection(forward);
 
-          // Calculate the right vector
           const right = new THREE.Vector3();
           right.crossVectors(camera.up, forward).normalize();
 
-          // Handle movement and collision
           handleMovement(delta, forward, right);
 
           prevTime = time;
         }
 
-        // Render the main scene
         renderer.render(scene, camera);
-
-        // Render the minimap scene
         minimapRenderer.render(minimapScene, minimapCamera);
       }
 
