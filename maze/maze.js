@@ -15,23 +15,24 @@ document.body.appendChild(renderer.domElement);
 
 const minimapScene = new THREE.Scene();
 const minimapCamera = new THREE.OrthographicCamera(
-  (-mazeWidth * cellSize) / 2, // left
-  (mazeWidth * cellSize) / 2, // right
-  (mazeHeight * cellSize) / 2, // top
-  (-mazeHeight * cellSize) / 2, // bottom
+  (-mazeWidth * cellSize) / 2 - cellSize / 2, // left
+  (mazeWidth * cellSize) / 2 + cellSize / 2, // right
+  (mazeHeight * cellSize) / 2 + cellSize / 2, // top
+  (-mazeHeight * cellSize) / 2 - cellSize / 2, // bottom
   0.1,
   100
 );
 minimapCamera.position.set(
-  (mazeWidth * cellSize) / 2,
+  (mazeWidth * cellSize) / 2 - cellSize / 2, // centrer la caméra sur l'axe X
   50, // hauteur au-dessus du labyrinthe pour une vue de dessus
-  (mazeHeight * cellSize) / 2 // placer la caméra au centre du labyrinthe
+  (mazeHeight * cellSize) / 2 - cellSize / 2 // centrer la caméra sur l'axe Z
 );
 minimapCamera.lookAt(
-  (mazeWidth * cellSize) / 2,
-  0,
-  (mazeHeight * cellSize) / 2
+  (mazeWidth * cellSize) / 2 - cellSize / 2, // centrer la vue sur l'axe X
+  0, // centrer la vue sur l'axe Y
+  (mazeHeight * cellSize) / 2 - cellSize / 2 // centrer la vue sur l'axe Z
 );
+
 const minimapRenderer = new THREE.WebGLRenderer();
 minimapRenderer.setSize(200, 200);
 document.getElementById("minimap").appendChild(minimapRenderer.domElement);
@@ -172,16 +173,20 @@ const floorMaterial = new THREE.MeshStandardMaterial({
 });
 const floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.rotation.x = -Math.PI / 2;
-floor.position.set((mazeWidth * cellSize) / 2, 0, (mazeHeight * cellSize) / 2); // Center the floor
+floor.position.set(
+  (mazeWidth * cellSize) / 2 - cellSize / 2,
+  0,
+  (mazeHeight * cellSize) / 2 - cellSize / 2
+); // Center the floor
 scene.add(floor);
 
 // Use the same texture for the minimap floor
 const miniFloor = new THREE.Mesh(floorGeometry, floorMaterial.clone());
 miniFloor.rotation.x = -Math.PI / 2;
 miniFloor.position.set(
-  (mazeWidth * cellSize) / 2,
+  (mazeWidth * cellSize) / 2 - cellSize / 2,
   0,
-  (mazeHeight * cellSize) / 2
+  (mazeHeight * cellSize) / 2 - cellSize / 2
 ); // Center the minimap floor
 minimapScene.add(miniFloor);
 
