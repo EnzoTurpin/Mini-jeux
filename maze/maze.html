@@ -8,13 +8,21 @@
   </head>
   <body data-game="maze-game">
     <div id="blocker">
-      <div id="instructions">Click to play</div>
+      <div id="instructions">
+        <h1>Bienvenue dans le Labyrinthe 3D</h1>
+        <p>
+          Utilisez les touches <strong>Z Q S D</strong> ou les flèches pour vous
+          déplacer.
+        </p>
+        <p>Évitez les murs et collectez tous les objets pour gagner.</p>
+        <p>Bonne chance!</p>
+        <button id="startButton">Commencer le jeu</button>
+      </div>
     </div>
     <div id="victoryMessage">You Win!</div>
     <div id="minimap"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/controls/PointerLockControls.js"></script>
-    <script src="../instructions.js"></script>
     <script src="maze.js"></script>
   </body>
 </html>

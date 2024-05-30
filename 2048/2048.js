@@ -2,9 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("game-2048-board");
   const size = 4;
   let grid = Array.from({ length: size }, () => Array(size).fill(0));
+  let highestTile = 0;
+  let highScore = localStorage.getItem("highScore") || 0;
+  document.getElementById("highScore").innerText = highScore;
 
   function createBoard() {
     board.innerHTML = "";
+    grid = Array.from({ length: size }, () => Array(size).fill(0)); // Réinitialiser la grille
+    highestTile = 0; // Réinitialiser la tuile la plus élevée
+    document.getElementById("score").innerText = highestTile;
     for (let i = 0; i < size * size; i++) {
       const cell = document.createElement("div");
       cell.className = "cell";
@@ -26,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const { row, col } =
       emptyCells[Math.floor(Math.random() * emptyCells.length)];
     grid[row][col] = Math.random() < 0.9 ? 2 : 4;
+    highestTile = Math.max(highestTile, grid[row][col]);
     console.log(`Added tile ${grid[row][col]} at position (${row}, ${col})`);
   }
 
@@ -63,7 +70,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (moved) {
       addRandomTile();
       renderBoard();
-      if (isGameOver()) alert("Game Over!");
+      if (isGameOver()) {
+        renderBoard(); // Mise à jour de l'interface avant d'afficher l'alerte
+        setTimeout(() => {
+          alert("Game Over!");
+          if (highestTile > highScore) {
+            highScore = highestTile;
+            localStorage.setItem("highScore", highScore);
+            document.getElementById("highScore").innerText = highScore;
+          }
+          createBoard(); // Recréer le tableau après la fin du jeu
+        }, 100); // Délai court pour permettre la mise à jour de l'interface
+      }
     }
   }
 
@@ -72,19 +90,18 @@ document.addEventListener("DOMContentLoaded", () => {
     array = array.filter((value) => value !== 0);
     console.log("Filtered array:", array);
 
-    // Nouvelle variable pour le tableau compressé
     let newArray = [];
 
     for (let i = 0; i < array.length; i++) {
       if (array[i] === array[i + 1]) {
         newArray.push(array[i] * 2);
-        i++; // Skip the next element
+        highestTile = Math.max(highestTile, array[i] * 2); // Mettre à jour la tuile la plus élevée
+        i++; // Passer l'élément suivant
       } else {
         newArray.push(array[i]);
       }
     }
 
-    // Compléter avec des zéros jusqu'à la taille correcte
     while (newArray.length < size) {
       newArray.push(0);
     }
@@ -102,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (value) cell.classList.add("tile-" + value);
     });
     console.log("Rendered grid:", grid);
+    document.getElementById("score").innerText = highestTile; // Mettre à jour la tuile la plus élevée affichée
   }
 
   function isGameOver() {

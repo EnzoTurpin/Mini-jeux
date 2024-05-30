@@ -25,6 +25,19 @@ canvas {
   cursor: pointer;
   animation: fadeIn 2s;
 }
+#instructions button {
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#instructions button:hover {
+  background: #ccc;
+}
 #victoryMessage {
   display: none;
   position: absolute;
