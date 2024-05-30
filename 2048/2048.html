@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2048</title>
-    <link rel="stylesheet" href="/mini-jeux-js/styles/style-2048.css" />
+    <link rel="stylesheet" href="../styles/style-2048.css" />
   </head>
-  <body>
+  <body data-game="2048-game">
     <div class="container">
       <h1>2048</h1>
       <div id="game-2048-board">
@@ -14,6 +14,7 @@
       </div>
       <button onclick="location.href='../index.html'">Retour au menu</button>
     </div>
+    <script src="../instructions.js"></script>
     <script src="2048.js"></script>
   </body>
 </html>

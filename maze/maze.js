@@ -191,7 +191,57 @@ miniFloor.position.set(
 minimapScene.add(miniFloor);
 
 const cameraHeight = cellSize / 2;
-camera.position.set(1, cameraHeight, 1);
+
+// Function to find a free cell in the maze
+function findFreeCell() {
+  for (let z = 0; z < mazeHeight; z++) {
+    for (let x = 0; x < mazeWidth; x++) {
+      if (maze[z][x] === 0) {
+        return { x, z };
+      }
+    }
+  }
+  return null;
+}
+
+// Function to orient the camera away from walls
+function orientCamera(position) {
+  const directions = [
+    { x: 1, z: 0 }, // right
+    { x: -1, z: 0 }, // left
+    { x: 0, z: 1 }, // down
+    { x: 0, z: -1 }, // up
+  ];
+
+  for (const dir of directions) {
+    const nx = position.x + dir.x;
+    const nz = position.z + dir.z;
+    if (
+      nx >= 0 &&
+      nx < mazeWidth &&
+      nz >= 0 &&
+      nz < mazeHeight &&
+      maze[nz][nx] === 0
+    ) {
+      // Set camera direction based on free adjacent cell
+      camera.lookAt(
+        new THREE.Vector3(nx * cellSize, cameraHeight, nz * cellSize)
+      );
+      return;
+    }
+  }
+}
+
+// Find a free cell for initial spawn
+const startCell = findFreeCell();
+if (startCell) {
+  camera.position.set(
+    startCell.x * cellSize,
+    cameraHeight,
+    startCell.z * cellSize
+  );
+  orientCamera(startCell);
+}
 
 const arrivalGeometry = new THREE.BoxGeometry(cellSize, cellSize / 4, cellSize);
 const arrivalMaterial = new THREE.MeshStandardMaterial({
