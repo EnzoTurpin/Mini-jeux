@@ -19,7 +19,19 @@
         <button id="startButton">Commencer le jeu</button>
       </div>
     </div>
-    <div id="victoryMessage">You Win!</div>
+    <div id="pauseMenu" class="popup">
+      <h1>Menu Pause</h1>
+      <button id="resumeButton">Reprendre le jeu</button>
+      <button id="toggleMapButton">Afficher/Cacher la carte</button>
+      <button id="restartButton">Recommencer le labyrinthe</button>
+      <button id="menuButton">Retour au menu</button>
+    </div>
+
+    <div id="victoryMessage">
+      <h1>You Win!</h1>
+      <button id="restartButtonVictory">Recommencer le labyrinthe</button>
+      <button id="menuButtonVictory">Retour au menu</button>
+    </div>
     <div id="minimap"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/controls/PointerLockControls.js"></script>

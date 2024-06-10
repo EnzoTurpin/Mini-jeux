@@ -4,9 +4,11 @@ body {
   font-family: "Arial", sans-serif;
   background-color: #222;
 }
+
 canvas {
   display: block;
 }
+
 #blocker {
   position: absolute;
   width: 100%;
@@ -16,6 +18,7 @@ canvas {
   justify-content: center;
   align-items: center;
 }
+
 #instructions {
   font-size: 24px;
   color: white;
@@ -25,6 +28,7 @@ canvas {
   cursor: pointer;
   animation: fadeIn 2s;
 }
+
 #instructions button {
   font-size: 20px;
   padding: 10px 20px;
@@ -35,9 +39,40 @@ canvas {
   cursor: pointer;
   margin-top: 10px;
 }
+
 #instructions button:hover {
   background: #ccc;
 }
+
+#pauseMenu {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#pauseMenu button {
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#pauseMenu button:hover {
+  background: #ccc;
+}
+
 #victoryMessage {
   display: none;
   position: absolute;
@@ -50,7 +85,25 @@ canvas {
   padding: 20px;
   border-radius: 10px;
   animation: fadeIn 2s;
+  text-align: center; /* Center align text and buttons */
 }
+
+#victoryMessage button {
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block; /* Make buttons block elements to stack them vertically */
+  width: 100%; /* Make buttons take full width */
+}
+#victoryMessage button:hover {
+  background: #ccc;
+}
+
 #minimap {
   position: absolute;
   bottom: 10px;
@@ -60,6 +113,39 @@ canvas {
   border: 2px solid white;
   background: rgba(0, 0, 0, 0.5);
 }
+
+/* Ajoutez ceci à la fin de votre fichier CSS */
+.popup {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.popup button {
+  font-size: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.popup button:hover {
+  background: #ccc;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

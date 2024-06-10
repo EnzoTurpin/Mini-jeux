@@ -52,6 +52,24 @@ controls.pointerSpeed = 0.1;
 const blocker = document.getElementById("blocker");
 const instructions = document.getElementById("instructions");
 const victoryMessage = document.getElementById("victoryMessage");
+const pauseMenu = document.getElementById("pauseMenu");
+const resumeButton = document.getElementById("resumeButton");
+const restartButton = document.getElementById("restartButton");
+const menuButton = document.getElementById("menuButton");
+const restartButtonVictory = document.getElementById("restartButtonVictory");
+const menuButtonVictory = document.getElementById("menuButtonVictory");
+const toggleMapButton = document.getElementById("toggleMapButton");
+let mapVisible = true; // État de visibilité de la carte
+
+toggleMapButton.addEventListener("click", () => {
+  mapVisible = !mapVisible;
+  document.getElementById("minimap").style.display = mapVisible
+    ? "block"
+    : "none";
+});
+
+let gameWon = false;
+let gamePaused = false;
 
 instructions.addEventListener("click", function () {
   controls.lock();
@@ -60,12 +78,62 @@ instructions.addEventListener("click", function () {
 controls.addEventListener("lock", function () {
   instructions.style.display = "none";
   blocker.style.display = "none";
+  pauseMenu.style.display = "none";
+  gamePaused = false;
 });
 
 controls.addEventListener("unlock", function () {
-  blocker.style.display = "flex";
-  instructions.style.display = "";
+  if (!gameWon) {
+    pauseMenu.style.display = "flex";
+    gamePaused = true;
+  } else {
+    pauseMenu.style.display = "none";
+  }
+  blocker.style.display = "none";
+  instructions.style.display = "none";
 });
+
+resumeButton.addEventListener("click", () => {
+  controls.lock();
+});
+
+restartButton.addEventListener("click", () => {
+  location.reload();
+});
+
+menuButton.addEventListener("click", () => {
+  window.location.href = "../index.html";
+});
+
+restartButtonVictory.addEventListener("click", () => {
+  location.reload();
+});
+
+menuButtonVictory.addEventListener("click", () => {
+  window.location.href = "../index.html";
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Escape") {
+    if (controls.isLocked) {
+      pauseGame();
+    } else {
+      resumeGame();
+    }
+  }
+});
+
+function pauseGame() {
+  controls.unlock();
+  pauseMenu.style.display = "flex";
+  gamePaused = true;
+}
+
+function resumeGame() {
+  if (!gameWon) {
+    controls.lock();
+  }
+}
 
 scene.add(controls.getObject());
 
@@ -270,8 +338,9 @@ const playerIndicatorGeometry = new THREE.ConeGeometry(
   8
 );
 const playerIndicatorMaterial = new THREE.MeshStandardMaterial({
-  color: 0x0000ff,
+  color: 0x00ffff, // Changer la couleur en jaune vif
 });
+
 const playerIndicator = new THREE.Mesh(
   playerIndicatorGeometry,
   playerIndicatorMaterial
@@ -355,7 +424,26 @@ function checkArrival(position) {
     new THREE.Vector3(position.x, cameraHeight, position.z),
     new THREE.Vector3(0.5, cameraHeight, 0.5)
   );
-  return box.intersectsBox(arrivalBox);
+  if (box.intersectsBox(arrivalBox)) {
+    gameWon = true;
+    return true;
+  }
+  return false;
+}
+
+const playerIconSize = cellSize / 2;
+
+function checkIconCollision(position) {
+  const box = new THREE.Box3().setFromCenterAndSize(
+    new THREE.Vector3(position.x, cameraHeight / 2, position.z),
+    new THREE.Vector3(playerIconSize, playerIconSize, playerIconSize)
+  );
+  for (const wallBox of wallBoxes) {
+    if (box.intersectsBox(wallBox)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function handleMovement(delta, forward, right) {
@@ -452,16 +540,23 @@ function handleMovement(delta, forward, right) {
     controls.unlock();
   }
 
+  // Mise à jour de la position de l'icône du joueur sur la minimap
+  let iconPosition = controls.getObject().position.clone();
+  if (checkIconCollision(iconPosition)) {
+    // Revenir à la position précédente si collision détectée
+    iconPosition = playerIndicator.position.clone();
+  }
+
   playerIndicator.position.set(
-    controls.getObject().position.x,
+    iconPosition.x,
     cameraHeight / 2,
-    controls.getObject().position.z
+    iconPosition.z
   );
 
   const playerDirection = new THREE.Vector3();
   camera.getWorldDirection(playerDirection);
   const angle = Math.atan2(playerDirection.z, playerDirection.x);
-  playerIndicator.rotation.z = -angle;
+  playerIndicator.rotation.z = angle - Math.PI / 2; // Rotation de l'icône du joueur sur la minimap avec compensation initiale
 }
 
 function animate() {
