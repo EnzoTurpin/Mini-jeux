@@ -1,74 +1,63 @@
-/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #1e1e2f; /* Fond sombre */
-  color: #ffffff; /* Texte blanc */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(135deg, #d68756, #9b6c1f);
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-  width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent pour un effet de carte */
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre portée */
+    background: rgba(0, 0, 0, 0.85);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: #ffeb3b; /* Couleur jaune vif pour le titre */
+    font-size: 3em;
+    color: #ffa500;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #000;
 }
 
 #game-menu {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
 }
 
-#game-menu button {
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  color: #ffffff;
-  background: #6200ea; /* Violet vif */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+button {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    text-shadow: 0 0 5px #000;
+    width: 80%;
+    max-width: 300px;
 }
 
-#game-menu button:hover {
-  background: #3700b3; /* Violet foncé au survol */
-  transform: scale(1.05);
+button:hover {
+    background: linear-gradient(45deg, #feb47b, #ff7e5f);
+    box-shadow: 0 0 5px #fff, 0 0 10px #ff7e5f;
 }
 
-#high-scores {
-  margin-top: 30px;
-}
-
-#high-scores h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #ff5722; /* Couleur orange vif */
-}
-
-#high-scores div {
-  font-size: 1.5rem;
-  margin: 10px 0;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent pour les scores */
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Ombre légère pour les scores */
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 3px #fff, 0 0 5px #ff7e5f;
 }
