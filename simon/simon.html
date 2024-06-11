@@ -7,17 +7,29 @@
     <link rel="stylesheet" href="simon.css" />
   </head>
   <body data-game="simon-game">
-    <div id="simon-container">
-      <div id="simon-game">
-        <button class="color-btn" id="green"></button>
-        <button class="color-btn" id="red"></button>
-        <button class="color-btn" id="yellow"></button>
-        <button class="color-btn" id="blue"></button>
+    <!-- Conteneur principal -->
+    <div id="main-container">
+      <!-- Conteneur du jeu Simon -->
+      <div id="simon-container">
+        <!-- Plateau de jeu Simon -->
+        <div id="simon-game">
+          <button class="color-btn" id="green"></button>
+          <button class="color-btn" id="red"></button>
+          <button class="color-btn" id="yellow"></button>
+          <button class="color-btn" id="blue"></button>
+        </div>
+        <!-- Conteneur des boutons de contrôle -->
+        <div id="button-container">
+          <button id="start-btn">Start Game</button>
+          <button id="back-btn" onclick="location.href='../index.html'">
+            Retour au menu
+          </button>
+        </div>
+        <!-- Paragraphe pour afficher le statut du jeu -->
+        <p id="status"></p>
       </div>
-      <button id="start-btn">Start Game</button>
-      <p id="status"></p>
     </div>
-    <button onclick="location.href='../index.html'">Retour au menu</button>
+    <!-- Scripts pour les instructions et le jeu -->
     <script src="../instructions.js"></script>
     <script src="simon.js"></script>
   </body>

@@ -1,9 +1,13 @@
+// Obtient l'élément du canvas par son ID
 const canvas = document.getElementById("gameCanvas");
+// Obtient le contexte de dessin 2D du canvas
 const ctx = canvas.getContext("2d");
 
+// Définit la largeur et la hauteur du canvas
 canvas.width = 400;
 canvas.height = 600;
 
+// Définit les propriétés du joueur
 let player = {
   x: 200,
   y: 500,
@@ -11,105 +15,153 @@ let player = {
   height: 50,
   dx: 0,
   dy: 0,
-  gravity: 0.4,
-  jumpPower: -12,
+  gravity: 0.1,
+  jumpPower: -6,
   score: 0,
+  direction: "right",
+  speed: 0,
+  maxSpeed: 2.5,
+  acceleration: 0.1,
+  friction: 0.05,
+  moveLeft: false,
+  moveRight: false,
 };
 
+// Initialisation des plateformes et des images
 let platforms = [];
 const platformCount = 5;
-let lastPlatform = null; // Ajout d'une variable pour suivre la dernière plateforme touchée
+let lastPlatform = null;
 
+const doodleImage = new Image();
+doodleImage.src = "doodle.png";
+
+const backgroundImage = new Image();
+backgroundImage.src = "background.png";
+
+const platformImage = new Image();
+platformImage.src = "platform.png";
+
+// Charge l'image de fond et initialise le jeu puis démarre la mise à jour
+backgroundImage.onload = () => {
+  initGame();
+  update();
+};
+
+// Crée les plateformes à des positions aléatoires
 function createPlatforms() {
   platforms = [];
   for (let i = 0; i < platformCount; i++) {
     platforms.push({
-      x: Math.random() * (canvas.width - 100), // Ensure the platform fits within the canvas
-      y: canvas.height - (i + 1) * 120, // Adjust the spacing of platforms
+      x: Math.random() * (canvas.width - 100),
+      y: canvas.height - (i + 1) * 90,
       width: 100,
       height: 20,
     });
   }
 }
 
+// Réinitialise la position du joueur sur la première plateforme
 function resetPlayer() {
-  // Ensure the player starts on the first platform
   if (platforms.length > 0) {
     player.x = platforms[0].x + platforms[0].width / 2 - player.width / 2;
     player.y = platforms[0].y - player.height;
     player.dy = 0;
     player.dx = 0;
-    lastPlatform = platforms[0]; // Initialiser la dernière plateforme
+    lastPlatform = platforms[0];
   } else {
-    // If no platforms exist, log an error
-    console.error("No platforms available to position the player.");
+    console.error("No platforms available to position the player."); // Aucune plateforme disponible pour positionner le joueur.
   }
 }
 
+// Initialise le jeu en créant les plateformes et en réinitialisant le joueur
 function initGame() {
   createPlatforms();
   resetPlayer();
 }
 
+// Dessine l'image de fond sur le canvas
+function drawBackground() {
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+}
+
+// Dessine le joueur sur le canvas
 function drawPlayer() {
-  ctx.fillStyle = "gold"; // Use CSS color or change to use an image
-  ctx.beginPath();
-  ctx.arc(
-    player.x + player.width / 2,
-    player.y + player.height / 2,
-    player.width / 2,
-    0,
-    Math.PI * 2
+  ctx.save();
+  ctx.translate(player.x + player.width / 2, player.y + player.height / 2);
+  if (player.direction === "left") {
+    ctx.scale(-1, 1);
+  }
+  ctx.drawImage(
+    doodleImage,
+    -player.width / 2,
+    -player.height / 2,
+    player.width,
+    player.height
   );
-  ctx.fill();
+  ctx.restore();
 }
 
-// Fonction pour dessiner des rectangles avec des coins arrondis
-function drawRoundedRect(ctx, x, y, width, height, radius) {
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.arcTo(x + width, y, x + width, y + height, radius);
-  ctx.arcTo(x + width, y + height, x, y + height, radius);
-  ctx.arcTo(x, y + height, x, y, radius);
-  ctx.arcTo(x, y, x + width, y, radius);
-  ctx.closePath();
-  ctx.fill();
+// Dessine une plateforme sur le canvas
+function drawPlatform(platform) {
+  ctx.drawImage(
+    platformImage,
+    platform.x,
+    platform.y,
+    platform.width,
+    platform.height
+  );
 }
 
+// Dessine toutes les plateformes sur le canvas
 function drawPlatforms() {
-  ctx.fillStyle = "green"; // Utilisez la couleur que vous préférez ou une image de fond
   platforms.forEach((platform) => {
-    drawRoundedRect(
-      ctx,
-      platform.x,
-      platform.y,
-      platform.width,
-      platform.height,
-      10
-    );
+    drawPlatform(platform);
   });
 }
 
+// Met à jour la position et les états du joueur
 function updatePlayer() {
   player.dy += player.gravity;
   player.y += player.dy;
 
-  // Update player position based on left/right movement
+  if (player.moveLeft) {
+    player.dx -= player.acceleration;
+    player.direction = "left";
+  } else if (player.moveRight) {
+    player.dx += player.acceleration;
+    player.direction = "right";
+  } else {
+    // Applique la friction
+    if (player.dx > 0) {
+      player.dx -= player.friction;
+      if (player.dx < 0) player.dx = 0;
+    } else if (player.dx < 0) {
+      player.dx += player.friction;
+      if (player.dx > 0) player.dx = 0;
+    }
+  }
+
+  // Limite la vitesse du joueur
+  if (player.dx > player.maxSpeed) {
+    player.dx = player.maxSpeed;
+  } else if (player.dx < -player.maxSpeed) {
+    player.dx = -player.maxSpeed;
+  }
+
   player.x += player.dx;
 
-  // Teleport player to the other side if they move off the screen
+  // Téléporte le joueur de l'autre côté de l'écran s'il sort des limites
   if (player.x < -player.width) {
     player.x = canvas.width;
   } else if (player.x > canvas.width) {
     player.x = -player.width;
   }
 
-  // If player falls below the canvas, reset position and score
   if (player.y > canvas.height) {
     gameOver();
   }
 
-  // Check for collision with platforms and make the player jump
+  // Gère la collision avec les plateformes
   platforms.forEach((platform) => {
     if (
       player.dy > 0 &&
@@ -120,22 +172,20 @@ function updatePlayer() {
     ) {
       player.dy = player.jumpPower;
       if (lastPlatform !== platform) {
-        // Vérifier si c'est une nouvelle plateforme
         player.score++;
-        lastPlatform = platform; // Mettre à jour la dernière plateforme
+        lastPlatform = platform;
       }
     }
   });
 }
 
+// Met à jour la position des plateformes
 function updatePlatforms() {
   platforms.forEach((platform) => {
-    // Move platforms down if the player is rising and is above the middle of the canvas
     if (player.y < canvas.height / 2 && player.dy < 0) {
       platform.y -= player.dy;
     }
 
-    // Recycle platforms that move off the bottom of the canvas
     if (platform.y > canvas.height) {
       platform.x = Math.random() * (canvas.width - 100);
       platform.y = 0;
@@ -143,44 +193,47 @@ function updatePlatforms() {
   });
 }
 
+// Affiche le score sur le canvas
 function drawScore() {
   ctx.fillStyle = "black";
   ctx.font = "20px Arial";
   ctx.fillText(`Score: ${player.score}`, 10, 20);
 }
 
+// Gère la fin de la partie
 function gameOver() {
   alert(`Game Over! Your score: ${player.score}`);
   player.score = 0;
-  lastPlatform = null; // Réinitialiser la dernière plateforme
+  lastPlatform = null;
   initGame();
 }
 
+// Fonction principale de mise à jour du jeu
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPlayer();
+  drawBackground();
   drawPlatforms();
+  drawPlayer();
   updatePlayer();
   updatePlatforms();
   drawScore();
   requestAnimationFrame(update);
 }
 
-// Event listeners for player movement
+// Écoute les événements de pression des touches
 document.addEventListener("keydown", (e) => {
   if (e.code === "ArrowLeft") {
-    player.dx = -5;
+    player.moveLeft = true;
   } else if (e.code === "ArrowRight") {
-    player.dx = 5;
+    player.moveRight = true;
   }
 });
 
+// Écoute les événements de relâchement des touches
 document.addEventListener("keyup", (e) => {
-  if (e.code === "ArrowLeft" || e.code === "ArrowRight") {
-    player.dx = 0;
+  if (e.code === "ArrowLeft") {
+    player.moveLeft = false;
+  } else if (e.code === "ArrowRight") {
+    player.moveRight = false;
   }
 });
-
-// Initialize game
-initGame();
-update();

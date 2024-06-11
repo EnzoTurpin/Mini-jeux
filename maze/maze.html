@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="maze.css" />
   </head>
   <body data-game="maze-game">
+    <!-- Écran de blocage avec instructions -->
     <div id="blocker">
       <div id="instructions">
         <h1>Bienvenue dans le Labyrinthe 3D</h1>
@@ -19,6 +20,8 @@
         <button id="startButton">Commencer le jeu</button>
       </div>
     </div>
+
+    <!-- Menu de pause -->
     <div id="pauseMenu" class="popup">
       <h1>Menu Pause</h1>
       <button id="resumeButton">Reprendre le jeu</button>
@@ -27,12 +30,17 @@
       <button id="menuButton">Retour au menu</button>
     </div>
 
+    <!-- Message de victoire -->
     <div id="victoryMessage">
       <h1>You Win!</h1>
       <button id="restartButtonVictory">Recommencer le labyrinthe</button>
       <button id="menuButtonVictory">Retour au menu</button>
     </div>
+
+    <!-- Mini-carte -->
     <div id="minimap"></div>
+
+    <!-- Inclusion des scripts nécessaires -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/controls/PointerLockControls.js"></script>
     <script src="maze.js"></script>

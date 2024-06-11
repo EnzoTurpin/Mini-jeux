@@ -7,13 +7,23 @@
     <link rel="stylesheet" href="memory.css" />
   </head>
   <body data-game="memory-game">
+    <!-- Conteneur principal -->
     <div class="container">
+      <!-- Titre du jeu -->
       <h1>Memory</h1>
+      <!-- Plateau de jeu Memory -->
       <div id="memory-board">
-        <!-- Les cartes seront générées ici -->
+        <!-- Les cartes du jeu seront générées ici -->
       </div>
-      <button onclick="location.href='../index.html'">Retour au menu</button>
+      <!-- Conteneur des boutons -->
+      <div class="button-container">
+        <!-- Bouton pour réinitialiser le jeu -->
+        <button id="reset-button">Réinitialiser</button>
+        <!-- Bouton de retour au menu principal -->
+        <button onclick="location.href='../index.html'">Retour au menu</button>
+      </div>
     </div>
+    <!-- Scripts pour les instructions et le jeu -->
     <script src="../instructions.js"></script>
     <script src="memory.js"></script>
   </body>

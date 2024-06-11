@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialisation des choix possibles et récupération des éléments du DOM
   const choices = ["🪨", "📄", "✂️"];
   const buttons = document.querySelectorAll("button");
   const resultDiv = document.getElementById("result");
 
+  // Ajout d'un écouteur d'événement pour chaque bouton
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       const playerChoice = button.textContent;
@@ -13,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Fonction pour déterminer le résultat du jeu
   function getResult(player, computer) {
     if (player === computer) {
       return "C'est une égalité !";

@@ -7,14 +7,18 @@
     <link rel="stylesheet" href="tic-tac-toe.css" />
   </head>
   <body data-game="tic-tac-toe-game">
+    <!-- Conteneur principal -->
     <div class="container">
+      <!-- Titre du jeu -->
       <h1>Tic-Tac-Toe</h1>
+      <!-- Section des statistiques du jeu, initialement masquée -->
       <div id="stats" style="display: none">
         <p>Victoires: <span id="wins">0</span></p>
         <p>Défaites: <span id="losses">0</span></p>
         <p>Égalités: <span id="draws">0</span></p>
         <p id="difficulty-display"></p>
       </div>
+      <!-- Sélection de la difficulté -->
       <div id="difficulty-selection">
         <h2>Choisissez la difficulté</h2>
         <button
@@ -36,15 +40,19 @@
           Difficile
         </button>
       </div>
+      <!-- Conteneur du jeu, initialement masqué -->
       <div id="game-container" style="display: none">
+        <!-- Plateau de jeu Tic-Tac-Toe -->
         <div id="tic-tac-toe-board">
-          <!-- Le plateau de jeu sera généré ici -->
+          <!-- Les cellules du jeu seront générées ici -->
         </div>
+        <!-- Bouton pour recommencer le jeu -->
         <button id="restart-button" onclick="restartGame()">Recommencer</button>
+        <!-- Bouton de retour au menu principal -->
         <button onclick="location.href='../index.html'">Retour au menu</button>
       </div>
     </div>
-    <script src="../instructions.js"></script>
+    <!-- Script pour le jeu Tic-Tac-Toe -->
     <script src="tic-tac-toe.js"></script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+/* Styles de base pour le corps de la page */
 body {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -9,16 +10,19 @@ body {
   margin: 0;
 }
 
+/* Conteneur principal pour centrer le contenu */
 .container {
   text-align: center;
 }
 
+/* Styles pour les titres */
 h1 {
   margin-bottom: 20px;
   font-size: 48px;
   color: #776e65;
 }
 
+/* Styles pour le plateau de jeu 2048 */
 #game-2048-board {
   display: grid;
   grid-template-columns: repeat(4, 100px);
@@ -30,6 +34,7 @@ h1 {
   margin: 0 auto;
 }
 
+/* Styles pour chaque cellule du plateau */
 .cell {
   width: 100px;
   height: 100px;
@@ -44,6 +49,7 @@ h1 {
   transition: background-color 0.3s, transform 0.3s;
 }
 
+/* Couleurs des cellules en fonction de leur valeur */
 .cell.tile-2 {
   background-color: #eee4da;
 }
@@ -87,6 +93,7 @@ h1 {
   color: #f9f6f2;
 }
 
+/* Styles pour les boutons */
 button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -99,11 +106,13 @@ button {
   transition: background-color 0.3s, transform 0.3s;
 }
 
+/* Effets de survol pour les boutons */
 button:hover {
   background-color: #776e65;
   transform: scale(1.1);
 }
 
+/* Effets lors du clic sur le bouton */
 button:active {
   background-color: #5e5e5e;
 }

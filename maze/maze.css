@@ -1,3 +1,4 @@
+/* Styles de base pour le corps de la page */
 body {
   margin: 0;
   overflow: hidden;
@@ -5,10 +6,12 @@ body {
   background-color: #222;
 }
 
+/* Styles pour les éléments canvas */
 canvas {
   display: block;
 }
 
+/* Styles pour l'écran de blocage */
 #blocker {
   position: absolute;
   width: 100%;
@@ -19,6 +22,7 @@ canvas {
   align-items: center;
 }
 
+/* Styles pour les instructions */
 #instructions {
   font-size: 24px;
   color: white;
@@ -29,6 +33,7 @@ canvas {
   animation: fadeIn 2s;
 }
 
+/* Styles pour les boutons dans les instructions */
 #instructions button {
   font-size: 20px;
   padding: 10px 20px;
@@ -44,6 +49,7 @@ canvas {
   background: #ccc;
 }
 
+/* Styles pour le menu de pause */
 #pauseMenu {
   display: none;
   position: absolute;
@@ -58,6 +64,7 @@ canvas {
   text-align: center;
 }
 
+/* Styles pour les boutons dans le menu de pause */
 #pauseMenu button {
   font-size: 20px;
   padding: 10px 20px;
@@ -73,6 +80,7 @@ canvas {
   background: #ccc;
 }
 
+/* Styles pour le message de victoire */
 #victoryMessage {
   display: none;
   position: absolute;
@@ -85,9 +93,10 @@ canvas {
   padding: 20px;
   border-radius: 10px;
   animation: fadeIn 2s;
-  text-align: center; /* Center align text and buttons */
+  text-align: center;
 }
 
+/* Styles pour les boutons dans le message de victoire */
 #victoryMessage button {
   font-size: 20px;
   padding: 10px 20px;
@@ -97,13 +106,15 @@ canvas {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  display: block; /* Make buttons block elements to stack them vertically */
-  width: 100%; /* Make buttons take full width */
+  display: block;
+  width: 100%;
 }
+
 #victoryMessage button:hover {
   background: #ccc;
 }
 
+/* Styles pour la mini-carte */
 #minimap {
   position: absolute;
   bottom: 10px;
@@ -114,7 +125,7 @@ canvas {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* Ajoutez ceci à la fin de votre fichier CSS */
+/* Styles pour les popups */
 .popup {
   display: none;
   position: absolute;
@@ -132,6 +143,8 @@ canvas {
   border-radius: 10px;
   cursor: pointer;
 }
+
+/* Styles pour les boutons dans les popups */
 .popup button {
   font-size: 20px;
   padding: 10px 20px;
@@ -142,10 +155,12 @@ canvas {
   cursor: pointer;
   margin-top: 10px;
 }
+
 .popup button:hover {
   background: #ccc;
 }
 
+/* Animation de fondu */
 @keyframes fadeIn {
   from {
     opacity: 0;

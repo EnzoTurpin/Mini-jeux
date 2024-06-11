@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="2048.css" />
   </head>
   <body data-game="2048-game">
+    <!-- Conteneur principal -->
     <div class="container">
+      <!-- Titre du jeu -->
       <h1>2048</h1>
+      <!-- Tableau des scores -->
       <div class="score-board">
         <div>Highest Tile: <span id="score">0</span></div>
         <div>Highest Score: <span id="highScore">0</span></div>
       </div>
-      <div id="game-2048-board">
-        <!-- La grille de jeu sera générée ici -->
-      </div>
+      <!-- Plateau de jeu -->
+      <div id="game-2048-board"></div>
+      <!-- Bouton de retour au menu principal -->
       <button onclick="location.href='../index.html'">Retour au menu</button>
     </div>
+    <!-- Scripts pour les instructions et le jeu -->
     <script src="../instructions.js"></script>
     <script src="2048.js"></script>
   </body>

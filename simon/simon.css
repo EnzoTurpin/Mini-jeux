@@ -1,124 +1,159 @@
-/* Set the font family and background color for the body */
+/* Définir la famille de polices et la couleur de fond pour le corps */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0; /* Change to a light grey for better contrast */
-  display: grid;
+  text-align: center;
+  background-color: #faf8ef;
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  overflow: hidden;
 }
 
-/* Style the container for the Simon game */
+#main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
+}
+
+/* Styliser le conteneur pour le jeu Simon */
 #simon-container {
   text-align: center;
-  background-color: #ffffff; /* Add a white background to the container */
+  background-color: #bbada0;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
 }
 
-/* Style the game board */
+/* Styliser le plateau de jeu */
 #simon-game {
   display: grid;
-  grid-template-columns: repeat(2, 200px); /* Adjust the size of the buttons */
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
   justify-content: center;
   margin-top: 20px;
 }
 
-/* Style the color buttons */
+/* Styliser les boutons de couleur */
 button.color-btn {
-  width: 200px;
-  height: 200px;
+  width: 45vw;
+  height: 45vw;
+  max-width: 200px;
+  max-height: 200px;
   border: none;
   cursor: pointer;
   outline: none;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: opacity 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #776e65;
 }
 
-/* Style the active state of the color buttons when pressed */
-button.color-btn:active {
+#green {
+  background-color: #66b266;
+}
+
+#red {
+  background-color: #cc6666;
+}
+
+#yellow {
+  background-color: #ffcc66;
+}
+
+#blue {
+  background-color: #6699cc;
+}
+
+/* Styliser l'état actif des boutons de couleur */
+button.color-btn:active,
+button.color-btn.active {
   opacity: 0.7;
 }
 
-/* Style the green button */
-#green {
+/* Styles actifs spécifiques pour rendre la séquence plus visible */
+button.color-btn.active#green {
   background-color: green;
 }
 
-/* Style the red button */
-#red {
+button.color-btn.active#red {
   background-color: red;
 }
 
-/* Style the yellow button */
-#yellow {
+button.color-btn.active#yellow {
   background-color: yellow;
 }
 
-/* Style the blue button */
-#blue {
+button.color-btn.active#blue {
   background-color: blue;
 }
 
-/* Style the active state of the color buttons */
-.color-btn.active#green {
-  background-color: lightgreen;
+/* Conteneur pour les boutons de démarrage et de retour */
+#button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.color-btn.active#red {
-  background-color: lightcoral;
-}
-
-.color-btn.active#yellow {
-  background-color: lightyellow;
-}
-
-.color-btn.active#blue {
-  background-color: lightblue;
-}
-
-/* Style the start button */
+/* Styliser le bouton de démarrage */
 #start-btn {
-  display: block;
-  margin: 20px auto;
-  padding: 15px 30px; /* Increase padding for better click area */
-  font-size: 18px; /* Increase font size for better readability */
+  padding: 10px 20px;
+  font-size: 18px;
   cursor: pointer;
-  background-color: #4caf50; /* Add a green background color */
-  color: white; /* White text color */
+  background-color: #8f7a66;
+  color: white;
   border: none;
   border-radius: 5px;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 #start-btn:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #776e65;
+  transform: scale(1.1);
 }
 
-/* Style the status text */
+#start-btn:active {
+  background-color: #5e5e5e;
+}
+
+/* Styliser le bouton de retour */
+#back-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #8f7a66;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#back-btn:hover {
+  background-color: #776e65;
+  transform: scale(1.1);
+}
+
+#back-btn:active {
+  background-color: #5e5e5e;
+}
+
+/* Styliser le texte de statut */
 #status {
   font-size: 18px;
   margin-top: 20px;
-  color: #333; /* Darker text color for better readability */
-}
-
-/* Style the back button */
-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #008cba; /* Add a blue background color */
-  color: white; /* White text color */
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.2s;
-}
-
-button:hover {
-  background-color: #007bb5; /* Darker blue on hover */
+  color: #776e65;
 }
