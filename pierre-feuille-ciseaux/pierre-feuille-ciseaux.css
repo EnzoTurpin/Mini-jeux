@@ -2,7 +2,7 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
+  background-color: #faf8ef;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,22 +14,26 @@ body {
 /* Styles pour les titres */
 h1 {
   margin-bottom: 20px;
-  font-size: 36px;
-  color: #333;
+  font-size: 48px;
+  color: #776e65;
 }
 
 /* Styles pour le conteneur de jeu */
 #game {
   margin: 20px;
+  background-color: #bbada0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Styles pour les boutons dans le conteneur de jeu */
 #game button {
   margin: 10px;
-  padding: 15px 30px;
-  font-size: 18px;
+  padding: 20px;
+  font-size: 24px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #8f7a66;
   color: white;
   border: none;
   border-radius: 5px;
@@ -37,15 +41,15 @@ h1 {
 }
 
 #game button:hover {
-  background-color: #0056b3;
+  background-color: #776e65;
   transform: scale(1.1);
 }
 
 /* Styles pour l'affichage des résultats */
 #result {
   margin: 20px;
-  font-size: 18px;
-  color: #333;
+  font-size: 24px;
+  color: #776e65;
 }
 
 /* Styles généraux pour les boutons */
@@ -54,7 +58,7 @@ button {
   padding: 10px 20px;
   font-size: 18px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #8f7a66;
   color: white;
   border: none;
   border-radius: 5px;
@@ -62,6 +66,11 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #776e65;
   transform: scale(1.1);
+}
+
+/* Effets lors du clic sur le bouton */
+button:active {
+  background-color: #5e5e5e;
 }
