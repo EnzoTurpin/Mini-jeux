@@ -86,6 +86,16 @@ document.addEventListener("DOMContentLoaded", () => {
         <li>Le premier joueur à aligner trois marques gagne !</li>
       </ul>
     `,
+    "snake-game": `
+      <p>Utilisez les touches fléchées pour contrôler le serpent :</p>
+      <ul>
+        <li><strong>Flèche Haut :</strong> Aller vers le haut</li>
+        <li><strong>Flèche Bas :</strong> Aller vers le bas</li>
+        <li><strong>Flèche Gauche :</strong> Aller à gauche</li>
+        <li><strong>Flèche Droite :</strong> Aller à droite</li>
+      </ul>
+      <p>Le serpent grandit en mangeant des fruits. Le jeu se termine si le serpent se mord ou touche les bords.</p>
+    `,
   };
 
   // Récupération du nom du jeu depuis l'attribut data-game du body

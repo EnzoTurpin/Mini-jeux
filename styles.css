@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 /* Styles de base pour le corps de la page */
 body {
   margin: 0;
   padding: 0;
-  font-family: "Press Start 2P", cursive;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #2d2d44);
   color: #fff;
   text-align: center;
   height: 100vh;
@@ -22,7 +22,8 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.1;
+  background: url("background-pattern.png") repeat;
+  opacity: 0.05;
   z-index: -1;
 }
 
@@ -36,79 +37,78 @@ body::before {
   flex-direction: column;
   align-items: center;
   z-index: 1;
+  max-width: 800px;
+  width: 90%;
 }
 
 /* Styles pour les titres */
 h1 {
-  font-size: 3em;
-  color: #ff69b4;
+  font-size: 2.5em;
+  color: #00e676;
   margin-bottom: 30px;
-  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+  text-shadow: 0 0 10px #00e676, 0 0 20px #00e676;
 }
 
 /* Styles pour le menu de jeu */
 #game-menu {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   width: 100%;
-  max-width: 900px;
   margin: 0 auto;
-}
-
-/* Adaptation du menu de jeu pour les petits écrans */
-@media (max-width: 900px) {
-  #game-menu {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  #game-menu {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Styles pour les boutons */
 button {
-  background: linear-gradient(45deg, #00ffcc, #0099ff);
+  background: #444;
   border: none;
-  color: #fff;
-  padding: 15px 30px;
-  font-size: 1.2em;
+  color: #00e676;
+  padding: 15px 20px;
+  font-size: 1em;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 10px;
-  text-shadow: 0 0 5px #000;
-  width: 100%;
-  max-width: 300px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
+  overflow: hidden;
+  flex: 1 1 calc(33.333% - 20px); /* Adaptation des boutons à la grille */
+  max-width: calc(33.333% - 20px); /* Adaptation des boutons à la grille */
 }
 
-button::before,
-button::after {
+button::before {
   content: "";
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #0099ff);
-  z-index: -1;
-  filter: blur(5px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 230, 118, 0.2);
+  opacity: 0;
   transition: all 0.3s ease;
 }
 
-/* Effets de survol pour les boutons */
-button:hover::before,
-button:hover::after {
-  filter: blur(10px);
+button:hover::before {
+  opacity: 1;
 }
 
-/* Effets lors du clic sur le bouton */
 button:active {
   transform: scale(0.95);
-  background: linear-gradient(45deg, #0099ff, #00ffcc);
-  box-shadow: 0 0 5px #0099ff, 0 0 10px #00ffcc;
+  background: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Adaptation du menu de jeu pour les petits écrans */
+@media (max-width: 900px) {
+  button {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 600px) {
+  button {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }

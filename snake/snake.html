@@ -6,18 +6,27 @@
     <title>Jeu du Serpent</title>
     <link rel="stylesheet" href="snake.css" />
   </head>
-  <body>
+  <body data-game="snake-game">
+    <!-- Conteneur principal -->
     <div id="main-container">
+      <!-- Titre du jeu -->
       <h1>Jeu du Serpent</h1>
+      <!-- Conteneur du jeu du serpent -->
       <div id="snake-container">
-        <div id="score">Score: 0</div>
+        <!-- Plateau de jeu -->
         <div id="game-board"></div>
       </div>
+      <!-- Conteneur des boutons de contrôle -->
       <div id="button-container">
+        <!-- Conteneur des boutons de contrôle -->
         <button id="retry-btn" onclick="retryGame()">Recommencer</button>
-        <button id="menu-btn" onclick="goToMenu()">Retour au menu</button>
+        <button id="menu-btn" onclick="goToMenu()">Menu</button>
       </div>
+      <!-- Paragraphe pour afficher le score -->
+      <div id="score">Score: 0</div>
     </div>
+    <!-- Scripts pour les instructions et la logique du jeu -->
+    <script src="../instructions.js"></script>
     <script src="snake.js"></script>
   </body>
 </html>

@@ -25,6 +25,7 @@ let player = {
   friction: 0.05,
   moveLeft: false,
   moveRight: false,
+  isJumping: false, // Ajout de l'indicateur de saut
 };
 
 // Initialisation des plateformes et des images
@@ -170,25 +171,37 @@ function updatePlayer() {
       player.y + player.height > platform.y &&
       player.y + player.height < platform.y + platform.height
     ) {
-      player.dy = player.jumpPower;
-      if (lastPlatform !== platform) {
-        player.score++;
-        lastPlatform = platform;
+      if (!player.isJumping) {
+        player.dy = player.jumpPower; // Réinitialise la vitesse verticale à chaque collision
+        player.isJumping = true; // Définit que le joueur est en train de sauter
+        console.log("Jump! Collision detected with platform at y:", platform.y); // Log de détection de collision
+        console.log("Player's vertical speed (dy) after jump:", player.dy); // Log de la vitesse verticale du joueur après le saut
+        if (lastPlatform !== platform) {
+          player.score++;
+          lastPlatform = platform;
+        }
       }
+    } else if (
+      player.dy > 0 &&
+      player.y + player.height >= platform.y + platform.height
+    ) {
+      player.isJumping = false; // Réinitialise l'indicateur de saut lorsque le joueur commence à descendre après un saut
     }
   });
 }
 
 // Met à jour la position des plateformes
 function updatePlatforms() {
-  platforms.forEach((platform) => {
+  platforms.forEach((platform, index) => {
+    // Déplacez les plateformes uniquement lorsque le joueur descend
     if (player.y < canvas.height / 2 && player.dy < 0) {
       platform.y -= player.dy;
-    }
-
-    if (platform.y > canvas.height) {
-      platform.x = Math.random() * (canvas.width - 100);
-      platform.y = 0;
+      // Empêcher les plateformes de se chevaucher en bas de l'écran
+      if (platform.y > canvas.height) {
+        platform.x = Math.random() * (canvas.width - platform.width);
+        platform.y = 0;
+        console.log(`Platform ${index} repositioned to y: 0`);
+      }
     }
   });
 }

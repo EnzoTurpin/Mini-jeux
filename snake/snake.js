@@ -1,23 +1,29 @@
+// Attend que le document soit complètement chargé avant d'exécuter le code
 document.addEventListener("DOMContentLoaded", () => {
+  // Sélection des éléments du DOM nécessaires pour le jeu
   const board = document.getElementById("game-board");
   const scoreDisplay = document.getElementById("score");
   const retryBtn = document.getElementById("retry-btn");
   const menuBtn = document.getElementById("menu-btn");
+
+  // Définition des constantes et des variables pour le plateau de jeu et le serpent
   const boardSize = 400;
   const tileSize = 20;
   let snake = [{ x: 200, y: 200 }];
   let fruit = getNewFruitPosition();
-  let direction = { x: 0, y: 1 }; // Initial direction is down
-  let speed = 200; // en ms
+  let direction = { x: 0, y: 1 };
+  let speed = 200;
   let score = 0;
   let gameInterval;
   let gameOver = false;
-  let gameStarted = false; // Indicateur pour savoir si le jeu a commencé
+  let gameStarted = false;
 
+  // Fonction pour obtenir une coordonnée aléatoire sur le plateau
   function getRandomCoord() {
     return Math.floor(Math.random() * (boardSize / tileSize)) * tileSize;
   }
 
+  // Fonction pour obtenir une nouvelle position pour le fruit
   function getNewFruitPosition() {
     let newFruitPosition;
     do {
@@ -26,12 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return newFruitPosition;
   }
 
+  // Fonction pour vérifier si une position est sur le serpent
   function isOnSnake(position) {
     return snake.some(
       (segment) => segment.x === position.x && segment.y === position.y
     );
   }
 
+  // Fonction pour dessiner le serpent et le fruit sur le plateau
   function draw() {
     board.innerHTML = ""; // Effacer le plateau de jeu
 
@@ -41,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       snakeElement.style.top = `${segment.y}px`;
       snakeElement.classList.add("snake");
 
+      // Ajouter des classes supplémentaires pour la tête et la queue du serpent
       if (index === 0) {
         snakeElement.classList.add("snake-head");
         if (direction.x === 0 && direction.y === -1)
@@ -76,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     board.appendChild(fruitElement);
   }
 
+  // Fonction pour déplacer le serpent
   function moveSnake() {
     if (gameOver) return;
 
@@ -105,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Fonction pour obtenir la direction de la queue du serpent
   function getTailDirection(index) {
     const tail = snake[index];
     const prevSegment = snake[index - 1];
@@ -114,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (prevSegment.y < tail.y) return { x: 0, y: -1 };
   }
 
+  // Fonction pour vérifier les collisions
   function checkCollision(head) {
     if (
       head.x < 0 ||
@@ -132,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return false;
   }
 
+  // Fonction pour changer la direction du serpent en fonction des touches pressées
   function changeDirection(event) {
     if (!gameStarted) {
       gameStarted = true;
@@ -155,29 +168,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Ajouter un écouteur d'événements pour les touches pressées
   document.addEventListener("keydown", changeDirection);
 
+  // Fonction principale du jeu qui gère le déplacement et le dessin du serpent
   function gameLoop() {
     moveSnake();
     draw();
   }
 
+  // Fonction pour recommencer le jeu
   window.retryGame = function retryGame() {
     clearInterval(gameInterval);
     snake = [{ x: 200, y: 200 }];
     fruit = getNewFruitPosition();
-    direction = { x: 0, y: 1 }; // Initial direction is down
+    direction = { x: 0, y: 1 };
     speed = 200;
     score = 0;
     gameOver = false;
-    gameStarted = false; // Réinitialiser gameStarted à false
+    gameStarted = false;
     scoreDisplay.textContent = `Score: ${score}`;
-    draw(); // Redessiner le jeu initialement
+    draw();
   };
 
+  // Fonction pour retourner au menu
   window.goToMenu = function goToMenu() {
     window.location.href = "../index.html";
   };
 
+  // Initialiser le jeu en appelant la fonction retryGame
   retryGame();
 });
