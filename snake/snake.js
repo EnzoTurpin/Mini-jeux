@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   let gameInterval;
   let gameOver = false;
+  let gameStarted = false; // Indicateur pour savoir si le jeu a commencé
 
   function getRandomCoord() {
     return Math.floor(Math.random() * (boardSize / tileSize)) * tileSize;
@@ -52,14 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
           snakeElement.classList.add("left");
       } else if (index === snake.length - 1) {
         snakeElement.classList.add("snake-tail");
-        // Apply the same direction to the tail as to the head
-        if (direction.x === 0 && direction.y === -1)
+        const tailDirection = getTailDirection(index);
+        if (tailDirection.x === 0 && tailDirection.y === -1)
           snakeElement.classList.add("up");
-        if (direction.x === 1 && direction.y === 0)
+        if (tailDirection.x === 1 && tailDirection.y === 0)
           snakeElement.classList.add("right");
-        if (direction.x === 0 && direction.y === 1)
+        if (tailDirection.x === 0 && tailDirection.y === 1)
           snakeElement.classList.add("down");
-        if (direction.x === -1 && direction.y === 0)
+        if (tailDirection.x === -1 && tailDirection.y === 0)
           snakeElement.classList.add("left");
       } else {
         snakeElement.classList.add("snake-body");
@@ -104,6 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function getTailDirection(index) {
+    const tail = snake[index];
+    const prevSegment = snake[index - 1];
+    if (prevSegment.x > tail.x) return { x: 1, y: 0 };
+    if (prevSegment.x < tail.x) return { x: -1, y: 0 };
+    if (prevSegment.y > tail.y) return { x: 0, y: 1 };
+    if (prevSegment.y < tail.y) return { x: 0, y: -1 };
+  }
+
   function checkCollision(head) {
     if (
       head.x < 0 ||
@@ -123,6 +133,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function changeDirection(event) {
+    if (!gameStarted) {
+      gameStarted = true;
+      gameInterval = setInterval(gameLoop, speed);
+    }
     if (gameOver) return;
 
     switch (event.key) {
@@ -156,8 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
     speed = 200;
     score = 0;
     gameOver = false;
+    gameStarted = false; // Réinitialiser gameStarted à false
     scoreDisplay.textContent = `Score: ${score}`;
-    gameInterval = setInterval(gameLoop, speed);
+    draw(); // Redessiner le jeu initialement
   };
 
   window.goToMenu = function goToMenu() {
