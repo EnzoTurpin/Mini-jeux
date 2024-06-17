@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tileSize = 20;
   let snake = [{ x: 200, y: 200 }];
   let fruit = getNewFruitPosition();
-  let direction = { x: 0, y: 1 };
+  let direction = { x: 0, y: 0 };
   let speed = 200;
   let score = 0;
   let gameInterval;
@@ -146,26 +146,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour changer la direction du serpent en fonction des touches pressées
   function changeDirection(event) {
-    if (!gameStarted) {
-      gameStarted = true;
-      gameInterval = setInterval(gameLoop, speed);
-    }
     if (gameOver) return;
 
     switch (event.key) {
       case "ArrowUp":
-        if (direction.y === 0) direction = { x: 0, y: -1 };
+        if (direction.y === 0 || direction.y === 1) {
+          direction = { x: 0, y: -1 };
+          if (!gameStarted) startGame();
+        }
         break;
       case "ArrowDown":
-        if (direction.y === 0) direction = { x: 0, y: 1 };
+        if (direction.y === 0 || direction.y === -1) {
+          direction = { x: 0, y: 1 };
+          if (!gameStarted) startGame();
+        }
         break;
       case "ArrowLeft":
-        if (direction.x === 0) direction = { x: -1, y: 0 };
+        if (direction.x === 0 || direction.x === 1) {
+          direction = { x: -1, y: 0 };
+          if (!gameStarted) startGame();
+        }
         break;
       case "ArrowRight":
-        if (direction.x === 0) direction = { x: 1, y: 0 };
+        if (direction.x === 0 || direction.x === -1) {
+          direction = { x: 1, y: 0 };
+          if (!gameStarted) startGame();
+        }
         break;
     }
+  }
+
+  // Fonction pour démarrer le jeu
+  function startGame() {
+    gameStarted = true;
+    gameInterval = setInterval(gameLoop, speed);
   }
 
   // Ajouter un écouteur d'événements pour les touches pressées
@@ -182,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(gameInterval);
     snake = [{ x: 200, y: 200 }];
     fruit = getNewFruitPosition();
-    direction = { x: 0, y: 1 };
+    direction = { x: 0, y: 0 };
     speed = 200;
     score = 0;
     gameOver = false;

@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       const playerChoice = button.textContent;
+
+      // Vérifiez si le choix du joueur est valide
+      if (!choices.includes(playerChoice)) {
+        return; // Si le choix n'est pas valide, ne faites rien
+      }
+
       const computerChoice =
         choices[Math.floor(Math.random() * choices.length)];
       const result = getResult(playerChoice, computerChoice);

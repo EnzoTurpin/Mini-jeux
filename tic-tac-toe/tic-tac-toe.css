@@ -117,4 +117,6 @@ button:active {
 #difficulty-display {
   font-weight: bold;
   color: #776e65;
+  transition: background-color 0.3s, transform 0.3s;
+  position: relative;
 }

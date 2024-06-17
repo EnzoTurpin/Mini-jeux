@@ -12,7 +12,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
 body::before {
@@ -22,7 +21,6 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("background-pattern.png") repeat;
   opacity: 0.05;
   z-index: -1;
 }
@@ -64,16 +62,20 @@ button {
   background: #444;
   border: none;
   color: #00e676;
-  padding: 15px 20px;
+  padding: 0;
   font-size: 1em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  flex: 1 1 calc(33.333% - 20px); /* Adaptation des boutons à la grille */
-  max-width: calc(33.333% - 20px); /* Adaptation des boutons à la grille */
+  width: 200px; /* Taille des boutons en carré */
+  height: 200px; /* Taille des boutons en carré */
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 button::before {
@@ -83,7 +85,6 @@ button::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 230, 118, 0.2);
   opacity: 0;
   transition: all 0.3s ease;
 }
@@ -96,6 +97,89 @@ button:active {
   transform: scale(0.95);
   background: #333;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour les noms des jeux */
+button span {
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px black;
+}
+
+button:hover span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Classes spécifiques pour les boutons de jeu avec images en arrière-plan */
+.tic-tac-toe {
+  background-image: url("img/tic-tac-toe.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.memory {
+  background-image: url("img/memory.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.game-2048 {
+  background-image: url("img/2048.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pierre-feuille-ciseaux {
+  background-image: url("img/pierre-feuille-ciseaux.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.simon {
+  background-image: url("img/simon.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.doodle-jump {
+  background-image: url("img/doodle-jump.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.maze {
+  background-image: url("img/maze.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.snake {
+  background-image: url("img/snake.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.coming-soon {
+  background-image: url("img/coming-soon.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Adaptation du menu de jeu pour les petits écrans */
