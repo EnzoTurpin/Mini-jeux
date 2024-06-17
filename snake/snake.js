@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let snake = [{ x: 200, y: 200 }];
   let fruit = getNewFruitPosition();
   let direction = { x: 0, y: 0 };
+  let nextDirection = { x: 0, y: 0 };
   let speed = 200;
   let score = 0;
-  let gameInterval;
+  let lastTime = 0;
   let gameOver = false;
   let gameStarted = false;
 
@@ -89,13 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function moveSnake() {
     if (gameOver) return;
 
+    direction = nextDirection;
     const head = {
       x: snake[0].x + direction.x * tileSize,
       y: snake[0].y + direction.y * tileSize,
     };
 
     if (checkCollision(head)) {
-      clearInterval(gameInterval);
       gameOver = true;
       alert("Game Over!");
       return;
@@ -108,8 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
       score++;
       speed = Math.max(50, speed - 10);
       scoreDisplay.textContent = `Score: ${score}`;
-      clearInterval(gameInterval);
-      gameInterval = setInterval(gameLoop, speed);
     } else {
       snake.pop();
     }
@@ -150,26 +149,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     switch (event.key) {
       case "ArrowUp":
-        if (direction.y === 0 || direction.y === 1) {
-          direction = { x: 0, y: -1 };
+        if (direction.y === 0) {
+          nextDirection = { x: 0, y: -1 };
           if (!gameStarted) startGame();
         }
         break;
       case "ArrowDown":
-        if (direction.y === 0 || direction.y === -1) {
-          direction = { x: 0, y: 1 };
+        if (direction.y === 0) {
+          nextDirection = { x: 0, y: 1 };
           if (!gameStarted) startGame();
         }
         break;
       case "ArrowLeft":
-        if (direction.x === 0 || direction.x === 1) {
-          direction = { x: -1, y: 0 };
+        if (direction.x === 0) {
+          nextDirection = { x: -1, y: 0 };
           if (!gameStarted) startGame();
         }
         break;
       case "ArrowRight":
-        if (direction.x === 0 || direction.x === -1) {
-          direction = { x: 1, y: 0 };
+        if (direction.x === 0) {
+          nextDirection = { x: 1, y: 0 };
           if (!gameStarted) startGame();
         }
         break;
@@ -179,29 +178,45 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fonction pour démarrer le jeu
   function startGame() {
     gameStarted = true;
-    gameInterval = setInterval(gameLoop, speed);
+    requestAnimationFrame(gameLoop);
   }
 
   // Ajouter un écouteur d'événements pour les touches pressées
   document.addEventListener("keydown", changeDirection);
 
   // Fonction principale du jeu qui gère le déplacement et le dessin du serpent
-  function gameLoop() {
-    moveSnake();
-    draw();
+  function gameLoop(currentTime) {
+    if (!lastTime) {
+      lastTime = currentTime;
+      requestAnimationFrame(gameLoop);
+      return;
+    }
+
+    const deltaTime = currentTime - lastTime;
+
+    if (deltaTime >= speed) {
+      moveSnake();
+      draw();
+      lastTime = currentTime;
+    }
+
+    if (!gameOver) {
+      requestAnimationFrame(gameLoop);
+    }
   }
 
   // Fonction pour recommencer le jeu
   window.retryGame = function retryGame() {
-    clearInterval(gameInterval);
     snake = [{ x: 200, y: 200 }];
     fruit = getNewFruitPosition();
     direction = { x: 0, y: 0 };
+    nextDirection = { x: 0, y: 0 };
     speed = 200;
     score = 0;
     gameOver = false;
     gameStarted = false;
     scoreDisplay.textContent = `Score: ${score}`;
+    lastTime = 0;
     draw();
   };
 
