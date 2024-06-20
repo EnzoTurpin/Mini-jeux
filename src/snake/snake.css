@@ -51,7 +51,7 @@ body {
 }
 
 .snake-head {
-  background-image: url("../img/head.png");
+  background-image: url("../../ressources/img/head.png");
   background-size: cover;
   background-position: center;
   transform-origin: center;
@@ -102,7 +102,7 @@ body {
 }
 
 .fruit {
-  background-image: url("../img/apple.png");
+  background-image: url("../../ressources/img/apple.png");
   background-size: cover;
   background-position: center;
 }

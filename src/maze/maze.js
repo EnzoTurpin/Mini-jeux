@@ -110,7 +110,7 @@ restartButton.addEventListener("click", () => {
 });
 
 menuButton.addEventListener("click", () => {
-  window.location.href = "../index.html";
+  window.location.href = "../../index.html";
 });
 
 restartButtonVictory.addEventListener("click", () => {
@@ -118,7 +118,7 @@ restartButtonVictory.addEventListener("click", () => {
 });
 
 menuButtonVictory.addEventListener("click", () => {
-  window.location.href = "../index.html";
+  window.location.href = "../../index.html";
 });
 
 // Gestion des touches de clavier pour la pause et le déplacement

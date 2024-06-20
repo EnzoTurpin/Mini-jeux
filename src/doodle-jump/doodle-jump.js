@@ -34,13 +34,13 @@ const platformCount = 5;
 let lastPlatform = null;
 
 const doodleImage = new Image();
-doodleImage.src = "../img/doodle.png";
+doodleImage.src = "../../ressources/img/doodle.png";
 
 const backgroundImage = new Image();
-backgroundImage.src = "../img/background.png";
+backgroundImage.src = "../../ressources/img/background.png";
 
 const platformImage = new Image();
-platformImage.src = "../img/platform.png";
+platformImage.src = "../../ressources/img/platform.png";
 
 // Charge l'image de fond et initialise le jeu puis démarre la mise à jour
 backgroundImage.onload = () => {

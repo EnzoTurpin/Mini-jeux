@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour retourner au menu
   window.goToMenu = function goToMenu() {
-    window.location.href = "../index.html";
+    window.location.href = "../../index.html";
   };
 
   // Initialiser le jeu en appelant la fonction retryGame

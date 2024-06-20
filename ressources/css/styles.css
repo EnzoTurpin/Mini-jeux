@@ -120,63 +120,63 @@ button:hover span {
 
 /* Classes spécifiques pour les boutons de jeu avec images en arrière-plan */
 .tic-tac-toe {
-  background-image: url("img/tic-tac-toe.png");
+  background-image: url("../img/tic-tac-toe.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .memory {
-  background-image: url("img/memory.png");
+  background-image: url("../img/memory.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .game-2048 {
-  background-image: url("img/2048.png");
+  background-image: url("../img/2048.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .pierre-feuille-ciseaux {
-  background-image: url("img/pierre-feuille-ciseaux.png");
+  background-image: url("../img/pierre-feuille-ciseaux.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .simon {
-  background-image: url("img/simon.png");
+  background-image: url("../img/simon.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .doodle-jump {
-  background-image: url("img/doodle-jump.png");
+  background-image: url("../img/doodle-jump.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .maze {
-  background-image: url("img/maze.png");
+  background-image: url("../img/maze.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .snake {
-  background-image: url("img/snake.png");
+  background-image: url("../img/snake.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .coming-soon {
-  background-image: url("img/coming-soon.jpg");
+  background-image: url("../img/coming-soon.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

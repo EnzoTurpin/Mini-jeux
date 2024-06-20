@@ -6,7 +6,7 @@
     <title>Doodle Jump</title>
     <link rel="stylesheet" href="doodle-jump.css" />
   </head>
-  <body>
+  <body data-game="doodle-jump-game">
     <!-- Conteneur principal -->
     <div class="container">
       <!-- Titre du jeu -->
@@ -14,9 +14,10 @@
       <!-- Canvas pour le jeu -->
       <canvas id="gameCanvas"></canvas>
       <!-- Bouton de retour au menu principal -->
-      <button onclick="location.href='../index.html'">Retour au menu</button>
+      <button onclick="location.href='../../index.html'">Retour au menu</button>
     </div>
     <!-- Script pour le jeu -->
+    <script src="../../ressources/js/instructions.js"></script>
     <script src="doodle-jump.js"></script>
   </body>
 </html>
