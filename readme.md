@@ -235,4 +235,4 @@ Les contributions sont les bienvenues ! Si vous souhaitez ajouter un nouveau jeu
 ## Auteurs
 
 - [Enzo Turpin](https://github.com/EnzoTurpin)
-- [Daryl Matro](https://ytrack.learn.ynov.com/git/mmahugno)
+- [Daryl Matro](https://github.com/darylmatro)
