@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour dessiner le serpent et le fruit sur le plateau
   function draw() {
-    board.innerHTML = ""; // Effacer le plateau de jeu
+    board.innerHTML = "";
 
     snake.forEach((segment, index) => {
       const snakeElement = document.createElement("div");
