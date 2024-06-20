@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
       board.appendChild(cell);
     }
     addRandomTile();
-    addRandomTile();
     renderBoard();
   }
 
