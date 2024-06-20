@@ -5,7 +5,7 @@ let userSequence = [];
 let level = 0;
 let isUserTurn = false;
 
-// Récupération des boutons et des sons associés
+// Récupération des boutons
 const buttons = {
   green: document.getElementById("green"),
   red: document.getElementById("red"),
@@ -13,21 +13,13 @@ const buttons = {
   blue: document.getElementById("blue"),
 };
 
-const sounds = {
-  green: new Audio("green.mp3"),
-  red: new Audio("red.mp3"),
-  yellow: new Audio("yellow.mp3"),
-  blue: new Audio("blue.mp3"),
-};
-
 // Récupération du bouton de démarrage et de l'élément de statut
 const startButton = document.getElementById("start-btn");
 const statusText = document.getElementById("status");
 
-// Fonction pour faire clignoter un bouton avec son son
+// Fonction pour faire clignoter un bouton
 function flashButton(color) {
   buttons[color].classList.add("active");
-  sounds[color].play();
   setTimeout(() => {
     buttons[color].classList.remove("active");
   }, 500);
