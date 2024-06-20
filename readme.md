@@ -94,7 +94,7 @@ Mini-Jeux/
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/votre-repo/mini-jeux.git
+   git clone https://ytrack.learn.ynov.com/git/tenzo/mini-jeux-js
    ```
 2. Accédez au dossier du projet :
    ```bash
