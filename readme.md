@@ -4,11 +4,10 @@ Bienvenue dans le projet **Mini-Jeux** ! Ce projet regroupe plusieurs petits jeu
 
 ## Table des matières
 
-1. [Aperçu des Jeux](#aperçu-des-jeux)
-2. [Structure du Projet](#structure-du-projet)
-3. [Installation](#installation)
-4. [Utilisation](#utilisation)
-5. [Jeux Inclus](#jeux-inclus)
+1. [Structure du Projet](#structure-du-projet)
+2. [Installation](#installation)
+3. [Utilisation](#utilisation)
+4. [Jeux Inclus](#jeux-inclus)
    - [2048](#2048)
    - [Doodle Jump](#doodle-jump)
    - [Maze](#maze)
@@ -17,14 +16,10 @@ Bienvenue dans le projet **Mini-Jeux** ! Ce projet regroupe plusieurs petits jeu
    - [Simon](#simon)
    - [Snake](#snake)
    - [Tic-Tac-Toe](#tic-tac-toe)
-6. [Ressources](#ressources)
-7. [Contributions](#contributions)
-8. [Auteurs](#auteurs)
-9. [Licence](#licence)
-
-## Aperçu des Jeux
-
-![Aperçu des Jeux](./path/to/screenshot.png)
+5. [Ressources](#ressources)
+6. [Contributions](#contributions)
+7. [Auteurs](#auteurs)
+8. [Licence](#licence)
 
 ## Structure du Projet
 
